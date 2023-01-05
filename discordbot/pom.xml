@@ -24,11 +24,6 @@
       <artifactId>JDA</artifactId>
       <version>5.0.0-beta.2</version>
     </dependency>
-    <dependency>
-      <groupId>net.dv8tion</groupId>
-      <artifactId>JDA</artifactId>
-      <version>5.0.0-alpha.12</version>
-    </dependency>
       <!-- https://github.com/cdimascio/dotenv-java -->
     <dependency>
       <groupId>io.github.cdimascio</groupId>
@@ -59,9 +54,20 @@
           <version>2.22.1</version>
         </plugin>
         <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
+		<!-- Build an executable JAR -->
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>3.1.0</version>
+		<configuration>
+			<archive>
+				<manifest>
+					<addClasspath>true</addClasspath>
+					<!-- here we specify that we want to use the main method within the App class -->
+					<mainClass>com.tim.DiscordBot</mainClass>
+				</manifest>
+			</archive>
+		</configuration>
+	</plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
@@ -75,6 +81,7 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
         </plugin>
+        
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
