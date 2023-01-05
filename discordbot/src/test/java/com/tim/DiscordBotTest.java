@@ -18,7 +18,7 @@ public class DiscordBotTest
 
     public DiscordBotTest() throws LoginException{
         config = Dotenv.configure().load();
-        String token = config.get("Token");
+        String token = config.get("TOKEN");
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
