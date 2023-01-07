@@ -5,6 +5,8 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+
 public class AudioLoadResult implements AudioLoadResultHandler{
 
     private final MusicController controller;
@@ -27,9 +29,23 @@ public class AudioLoadResult implements AudioLoadResultHandler{
     }
 
     @Override
-    public void playlistLoaded(AudioPlaylist arg0) {
-        // TODO Auto-generated method stub
+    public void playlistLoaded(AudioPlaylist playlist) {
+        Queue queue = controller.getQueue();
+        if(uri .startsWith("ytsearch: ")){
+            queue.addTrackToQueue(playlist.getTracks().get(0));
+            return;
+        }
+
+        int added = 0;
         
+        for(AudioTrack track : playlist.getTracks()){
+            queue.addTrackToQueue(track);
+            added++;
+        }
+
+        EmbedBuilder builder = new EmbedBuilder().setDescription("Added **" + added + "** Track/s to the queue!");
+        
+        MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
     }
 
     @Override

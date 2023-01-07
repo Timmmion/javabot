@@ -20,10 +20,19 @@ public class PlayerManager {
         }
         else{
             mc = new MusicController(DiscordBot.INSTANCE.shardManager.getGuildById(guildId));
-            System.out.println(controller.get(guildId).toString());
             controller.put(guildId, mc);
         }
 
         return mc;
+    }
+
+    public long getGuildbyPlayerHash(int hash){
+    for(MusicController controller : this.controller.values()){
+        if(controller.getPlayer().hashCode() == hash){
+            return controller.getGuild().getIdLong();
+        }
+    }
+
+        return -1;
     }
 }

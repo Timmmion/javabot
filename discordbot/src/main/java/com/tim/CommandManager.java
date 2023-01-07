@@ -4,8 +4,11 @@ package com.tim;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tim.commands.ClearCommand;
+import com.tim.commands.ShutdownCommand;
 import com.tim.commands.types.ServerCommand;
 import com.tim.music.commands.PlayCommand;
+import com.tim.music.commands.ShuffleCommand;
+import com.tim.music.commands.StopCommand;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -18,8 +21,11 @@ public class CommandManager {
     public CommandManager(){
         commands = new ConcurrentHashMap<>();
 
+        commands.put("shutdown", new ShutdownCommand());
         commands.put("clear", new ClearCommand());
         commands.put("play", new PlayCommand());
+        commands.put("stop", new StopCommand());
+        commands.put("shuffle", new ShuffleCommand());
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){

@@ -1,5 +1,9 @@
 package com.tim;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.security.auth.login.LoginException;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -7,6 +11,8 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.tim.listeners.CommandListener;
 import com.tim.listeners.EventListener;
+import com.tim.manage.LiteSQL;
+import com.tim.manage.SQLManager;
 import com.tim.music.PlayerManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -37,6 +43,10 @@ public class DiscordBot
     public DiscordBot() throws LoginException{
         INSTANCE = this;
 
+        LiteSQL.connect();
+        SQLManager.onCreate();
+
+
         config = Dotenv.configure().load();
         String token = config.get("TOKEN");
 
@@ -48,13 +58,14 @@ public class DiscordBot
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("Hentai"));
-        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_MESSAGES);
+        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_VOICE_STATES);
         builder.addEventListeners(new CommandListener());
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
         builder.setChunkingFilter(ChunkingFilter.ALL);
         builder.enableCache(CacheFlag.ONLINE_STATUS);
 
         shardManager = builder.build();
+        System.out.println("BOT ONLINE!");
 
         //Register Listeners
         shardManager.addEventListener(new EventListener());
