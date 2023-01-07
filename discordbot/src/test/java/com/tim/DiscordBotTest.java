@@ -5,7 +5,6 @@ import javax.security.auth.login.LoginException;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Activity.ActivityType;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
@@ -41,6 +40,9 @@ public class DiscordBotTest
     {
         try{
             DiscordBot bot = new DiscordBot();
+            if(bot.equals(bot)){
+                
+            }
         }catch (LoginException e){
             System.out.println("Error: Bot token is not valid!");
         }
