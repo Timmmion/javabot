@@ -1,9 +1,5 @@
 package com.tim;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import javax.security.auth.login.LoginException;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -88,6 +84,9 @@ public class DiscordBot
     {
         try{
             DiscordBot bot = new DiscordBot();
+            if(bot.equals(bot)){
+                
+            }
         }catch (LoginException e){
             System.out.println("Error: Bot token is not valid!");
         }

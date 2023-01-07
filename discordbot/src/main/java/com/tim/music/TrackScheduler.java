@@ -53,7 +53,10 @@ public class TrackScheduler extends AudioEventAdapter {
 		}
 		
 		AudioManager manager = guild.getAudioManager();
-		player.stopTrack();
-		manager.closeAudioConnection();
+
+        if(queue.getQueuelist().isEmpty()){
+            player.stopTrack();
+            manager.closeAudioConnection();
+        }
     }
 }

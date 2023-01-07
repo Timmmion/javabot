@@ -24,7 +24,6 @@ public class AudioLoadResult implements AudioLoadResultHandler{
 
     @Override
     public void noMatches() {
-        // TODO Auto-generated method stub
         
     }
 
@@ -43,7 +42,7 @@ public class AudioLoadResult implements AudioLoadResultHandler{
             added++;
         }
 
-        EmbedBuilder builder = new EmbedBuilder().setDescription("Added **" + added + "** Track/s to the queue!");
+        EmbedBuilder builder = new EmbedBuilder().setDescription("Added **" + added + "** Tracks to the queue!");
         
         MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
     }
@@ -51,6 +50,9 @@ public class AudioLoadResult implements AudioLoadResultHandler{
     @Override
     public void trackLoaded(AudioTrack track) {
         controller.getPlayer().playTrack(track);
+
+        EmbedBuilder builder = new EmbedBuilder().setDescription("Added the Track to queue!");
+        MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
         
     }
     

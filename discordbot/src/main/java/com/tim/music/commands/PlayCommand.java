@@ -1,9 +1,6 @@
 package com.tim.music.commands;
 
-import javax.sound.midi.Track;
-
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.tim.DiscordBot;
 import com.tim.commands.types.ServerCommand;
 import com.tim.music.AudioLoadResult;

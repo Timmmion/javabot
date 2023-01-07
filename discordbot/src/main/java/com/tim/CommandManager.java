@@ -8,6 +8,7 @@ import com.tim.commands.ShutdownCommand;
 import com.tim.commands.types.ServerCommand;
 import com.tim.music.commands.PlayCommand;
 import com.tim.music.commands.ShuffleCommand;
+import com.tim.music.commands.SkipCommand;
 import com.tim.music.commands.StopCommand;
 
 import net.dv8tion.jda.api.entities.Member;
@@ -26,6 +27,7 @@ public class CommandManager {
         commands.put("play", new PlayCommand());
         commands.put("stop", new StopCommand());
         commands.put("shuffle", new ShuffleCommand());
+        commands.put("skip", new SkipCommand());
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){
