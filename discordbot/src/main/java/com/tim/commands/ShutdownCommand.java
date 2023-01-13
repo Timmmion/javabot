@@ -21,6 +21,7 @@ public class ShutdownCommand implements ServerCommand{
             if(shardManager != null){   
                 channel.sendMessage("**Going to sleep goodbye :wave:**").queue();;
                 shardManager.setStatus(OnlineStatus.OFFLINE);
+                DiscordBot.INSTANCE.svManager.endGame();
                 shardManager.shutdown();
                 LiteSQL.disconnect();
                 System.out.println("BOT OFFLINE!");
@@ -28,7 +29,8 @@ public class ShutdownCommand implements ServerCommand{
         }else{
             channel.sendMessage("You're not the Owner you can't shutdown the server!").queue();
         }
-        
+    
+
         return;
     }
 }

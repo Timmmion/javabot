@@ -6,6 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.tim.commands.ClearCommand;
 import com.tim.commands.ShutdownCommand;
 import com.tim.commands.types.ServerCommand;
+import com.tim.minigames.sv.commands.placeShip;
+import com.tim.minigames.sv.commands.svStartGame;
 import com.tim.music.commands.PlayCommand;
 import com.tim.music.commands.ShuffleCommand;
 import com.tim.music.commands.SkipCommand;
@@ -30,6 +32,8 @@ public class CommandManager {
         commands.put("shuffle", new ShuffleCommand());
         commands.put("skip", new SkipCommand());
         commands.put("volume", new VolumeCommand());
+        commands.put("sv", new svStartGame());
+        commands.put("svship", new placeShip());
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){

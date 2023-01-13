@@ -6,9 +6,9 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.tim.listeners.CommandListener;
-import com.tim.listeners.EventListener;
 import com.tim.manage.LiteSQL;
 import com.tim.manage.SQLManager;
+import com.tim.minigames.sv.SVManager;
 import com.tim.music.PlayerManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -31,6 +31,7 @@ public class DiscordBot
     private final Dotenv config;
     public ShardManager shardManager;
     private CommandManager cmdMan;
+    public SVManager svManager;
 
     public AudioPlayerManager audioPlayerManager;
     public PlayerManager playerManager;
@@ -51,6 +52,7 @@ public class DiscordBot
         audioPlayerManager = new DefaultAudioPlayerManager();
         playerManager = new PlayerManager();
         cmdMan = new CommandManager();
+        svManager = new SVManager();
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("Hentai"));
@@ -64,7 +66,7 @@ public class DiscordBot
         System.out.println("BOT ONLINE!");
 
         //Register Listeners
-        shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(svManager);
         AudioSourceManagers.registerRemoteSources(audioPlayerManager);
         audioPlayerManager.getConfiguration().setFilterHotSwapEnabled(true);
 
