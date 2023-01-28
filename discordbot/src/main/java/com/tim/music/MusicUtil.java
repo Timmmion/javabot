@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.tim.DiscordBot;
-import com.tim.manage.LiteSQL;
+import com.tim.manage.SQL;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -12,13 +12,13 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class MusicUtil {
     public static void updateChannel(TextChannel channel){
-        ResultSet set = LiteSQL.onQuery("SELECT * FROM musicchannel WHERE guildid = " + channel.getGuild().getIdLong());
+        ResultSet set = SQL.onQuery("SELECT * FROM musicchannel WHERE guildid = " + channel.getGuild().getIdLong());
 
         try{
             if(set.next()){
-                LiteSQL.onUpdate("UPDATE musicchannel SET channelid = " + channel.getIdLong() + " WHERE guildid = " + channel.getGuild().getIdLong());
+                SQL.onUpdate("UPDATE musicchannel SET channelid = " + channel.getIdLong() + " WHERE guildid = " + channel.getGuild().getIdLong());
             }else{
-                LiteSQL.onUpdate("INSERT INTO musicchannel(guildid, channelid) VALUES(" + channel.getGuild().getIdLong() + "," + channel.getIdLong() + ")");
+                SQL.onUpdate("INSERT INTO musicchannel(guildid, channelid) VALUES(" + channel.getGuild().getIdLong() + "," + channel.getIdLong() + ")");
             }
         }catch(SQLException ex){
 
@@ -39,7 +39,7 @@ public class MusicUtil {
 
 
     public static TextChannel getMusicChannel(long guildid) {
-		ResultSet set = LiteSQL.onQuery("SELECT * FROM musicchannel WHERE guildid = " + guildid);
+		ResultSet set = SQL.onQuery("SELECT * FROM musicchannel WHERE guildid = " + guildid);
 		
 		try {
 			if(set.next()) {

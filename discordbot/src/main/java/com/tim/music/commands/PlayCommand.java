@@ -55,6 +55,5 @@ public class PlayCommand implements ServerCommand{
         else {
             channel.sendMessage("Bitte benutze **" + DiscordBot.PREFIX + "play [url]** !").queue();
         }
-        
     }
 }

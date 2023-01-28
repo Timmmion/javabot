@@ -6,7 +6,7 @@ public class SQLManager {
 
         // id guildid channelid messageid emote roleid
 
-        LiteSQL.onUpdate("CREATE TABLE IF NOT EXISTS musicchannel(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, guildid INTEGER, channelid INTEGER)");
+        SQL.onUpdate("CREATE TABLE IF NOT EXISTS musicchannel(id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT, guildid BIGINT, channelid BIGINT)");
     }
 
 }

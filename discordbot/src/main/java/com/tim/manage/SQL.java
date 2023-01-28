@@ -1,35 +1,38 @@
 package com.tim.manage;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class LiteSQL {
+import com.tim.DiscordBot;
+
+import io.github.cdimascio.dotenv.Dotenv;
+
+public class SQL {
     
     private static Connection con;
     private static Statement statement;
+    private static final Dotenv config = DiscordBot.INSTANCE.config;
 
     public static void connect(){
         con = null;
 
-        try{
-            File file = new File("data.db");
-            if(!file.exists()){
-                file.createNewFile();
-            }
+        String url = "jdbc:mysql://" + config.get("IPADRESS") + ":3306/discordDB";
+        String username = config.get("USERNAMEMYSQL");
+        String password = config.get("PASSWORD");
 
-            String url = "jdbc:sqlite: " + file.getPath();
-            con = DriverManager.getConnection(url);
+        try{
+
+            //Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, username, password);
 
             System.out.println("Connected to Database!");
 
             statement = con.createStatement();
 
-        }catch (SQLException | IOException e){
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
@@ -48,7 +51,6 @@ public class LiteSQL {
     public static void onUpdate(String sql){
         try{
             statement.execute(sql);
-            
 
         }catch(SQLException e){
             e.printStackTrace();

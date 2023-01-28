@@ -2,7 +2,7 @@ package com.tim.commands;
 
 import com.tim.DiscordBot;
 import com.tim.commands.types.ServerCommand;
-import com.tim.manage.LiteSQL;
+import com.tim.manage.SQL;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Member;
@@ -21,9 +21,8 @@ public class ShutdownCommand implements ServerCommand{
             if(shardManager != null){   
                 channel.sendMessage("**Going to sleep goodbye :wave:**").queue();;
                 shardManager.setStatus(OnlineStatus.OFFLINE);
-                DiscordBot.INSTANCE.svManager.endGame();
                 shardManager.shutdown();
-                LiteSQL.disconnect();
+                SQL.disconnect();
                 System.out.println("BOT OFFLINE!");
             }
         }else{
