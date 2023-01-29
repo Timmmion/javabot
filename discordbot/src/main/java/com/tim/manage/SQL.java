@@ -22,6 +22,7 @@ public class SQL {
         String url = "jdbc:mysql://" + config.get("IPADRESS") + ":3306/discordDB";
         String username = config.get("USERNAMEMYSQL");
         String password = config.get("PASSWORD");
+        
 
         try{
 

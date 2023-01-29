@@ -5,6 +5,7 @@ import javax.security.auth.login.LoginException;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.tim.channeltimer.timeManager;
 import com.tim.listeners.CommandListener;
 import com.tim.manage.SQL;
 import com.tim.manage.SQLManager;
@@ -66,7 +67,8 @@ public class DiscordBot
         AudioSourceManagers.registerRemoteSources(audioPlayerManager);
         audioPlayerManager.getConfiguration().setFilterHotSwapEnabled(true);
 
-
+        timeManager timeManager = new timeManager();
+        timeManager.startScheduleTask();
     }
 
     public Dotenv getconfig(){
