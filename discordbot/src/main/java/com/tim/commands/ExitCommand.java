@@ -17,6 +17,7 @@ public class ExitCommand implements ServerCommand{
         ShardManager shardManager = DiscordBot.INSTANCE.shardManager;
         String idOwner = DiscordBot.INSTANCE.config.get("OWNERIDLONG");
 
+
         if(message.getAuthor().isBot()) return;
         if(m.getIdLong() == Long.parseLong(idOwner)){
             if(shardManager != null){   

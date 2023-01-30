@@ -20,14 +20,16 @@ public class broadcast implements ServerCommand {
         if(message.getAuthor().isBot()) return;
 
         if(m.getIdLong() == Long.parseLong(DiscordBot.INSTANCE.config.get("OWNERIDLONG"))){
-            String[] args = message.getContentDisplay().split(" ");
+            String[] args = message.getContentDisplay().split("<>");
             List<Long> servers = new ArrayList<>();
-
+            
             if(args.length == 3){
                 try{
                     EmbedBuilder builder = new EmbedBuilder();
-                    builder.addField(args[1],args[2],false);
-                    
+                    builder.setColor(DiscordBot.color);
+                    builder.setTitle(args[1]);
+                    builder.setDescription(args[2]);
+
                     ResultSet set = SQL.onQuery("SELECT server FROM channeltime");
 
                     while(set.next()){
@@ -40,6 +42,7 @@ public class broadcast implements ServerCommand {
                     for(int i = 0; i < servers.size();i++){
                         DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().sendMessageEmbeds(builder.build()).queue();
                     }
+
 
                 }catch(Exception e){
                     e.printStackTrace();
