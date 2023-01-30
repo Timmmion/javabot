@@ -1,5 +1,7 @@
 package com.tim;
 
+import java.awt.Color;
+
 import javax.security.auth.login.LoginException;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -12,8 +14,10 @@ import com.tim.manage.SQLManager;
 import com.tim.music.PlayerManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -26,7 +30,7 @@ public class DiscordBot
 {   
     public static DiscordBot INSTANCE;
     public static String PREFIX = "&";
-
+    public static Color color = Color.decode("#9309dd");
 
     public final Dotenv config;
     public ShardManager shardManager;
@@ -91,5 +95,12 @@ public class DiscordBot
             System.out.println("Error: Bot token is not valid!");
         }
 
+    }
+
+    public static void embedsender(String title ,TextChannel channel){
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setTitle(title);
+        builder.setColor(color);
+        channel.sendMessageEmbeds(builder.build()).queue();
     }
 }

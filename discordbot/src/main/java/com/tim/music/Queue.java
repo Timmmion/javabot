@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.tim.DiscordBot;
+
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class Queue {
@@ -29,6 +31,12 @@ public class Queue {
 
 		}
 		
+		return false;
+	}
+	public boolean queueNotEmpty(){
+		if(queuelist.size() >= 1){
+			return true;
+		}
 		return false;
 	}
 	
@@ -66,10 +74,14 @@ public class Queue {
 			AudioTrack nextTrack = queuelist.get(0);
 			controller.getPlayer().playTrack(nextTrack);
 			queuelist.remove(nextTrack);
-			channel.sendMessage("**Skipped!** " + queuelist.size() + " remaining songs in the playlist").queue();
+			DiscordBot.embedsender("**Skipped!** " + queuelist.size() + " remaining songs in the playlist",channel);
 		}else{
-			channel.sendMessage("Can't skip anything when the playlist is empty xD").queue();
+			DiscordBot.embedsender("Can't skip anything when the playlist is empty xD",channel);
 		}
+	}
+
+	public void clearqueue(){
+		queuelist.clear();
 	}
 
 }

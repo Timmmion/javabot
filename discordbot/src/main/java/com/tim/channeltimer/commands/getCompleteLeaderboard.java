@@ -20,7 +20,8 @@ public class getCompleteLeaderboard implements ServerCommand{
     public void perfomCommand(Member m, TextChannel channel, Message message) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle("Complete user list!");
-        ResultSet set = SQL.onQuery("SELECT idlong, timeinmin FROM channeltime ORDER BY timeinmin DESC");
+        builder.setColor(DiscordBot.color);
+        ResultSet set = SQL.onQuery("SELECT idlong, timeinmin FROM channeltime WHERE server='" + m.getGuild().getIdLong() + "' ORDER BY timeinmin DESC");
         List<Long> idlist = new ArrayList<>();
         List<Long> timelist = new ArrayList<>();
         try {
@@ -35,6 +36,7 @@ public class getCompleteLeaderboard implements ServerCommand{
                 builder.addField((i + 1) + ".", DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + " minutes", false);
             }
             channel.sendMessageEmbeds(builder.build()).queue();;
-        } catch (SQLException e) { e.printStackTrace(); }  
+        } catch (SQLException e) { e.printStackTrace(); SQL.lostConnection(); }  
+        
     }
 }

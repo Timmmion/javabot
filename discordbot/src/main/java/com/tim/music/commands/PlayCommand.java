@@ -16,6 +16,8 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class PlayCommand implements ServerCommand{
     
+    AudioPlayerManager apm;
+
     @Override
     public void perfomCommand(Member m, TextChannel channel, Message message) {
         String[] args = message.getContentDisplay().split(" ");
@@ -28,8 +30,8 @@ public class PlayCommand implements ServerCommand{
                 VoiceChannel vc;
                 vc = state.getChannel().asVoiceChannel();
                     MusicController controller = DiscordBot.INSTANCE.playerManager.getController(vc.getGuild().getIdLong());
-                    AudioPlayerManager apm = DiscordBot.INSTANCE.audioPlayerManager;
                     AudioManager manager = controller.getGuild().getAudioManager();
+                    apm = DiscordBot.INSTANCE.audioPlayerManager;
                     manager.openAudioConnection(vc);
 
                     MusicUtil.updateChannel(channel);
@@ -41,19 +43,26 @@ public class PlayCommand implements ServerCommand{
                     if(!url.startsWith("http")){
                         url = "ytsearch: " + url + " audio";
                     }
-                    
-                    apm.loadItem(url, new AudioLoadResult(controller, url));
+                    if(!controller.getPlayer().isPaused()){
+                        DiscordBot.embedsender("Added the Track to queue!", channel);
+                    }
+                    startapm(url, controller);
+
                 }catch (Exception e)
                 {
-                    channel.sendMessage("Sadly you're **not** in a voice channel :( Go there to use the Command!").queue();
+                    DiscordBot.embedsender("Sadly you're **not** in a voice channel :( Go there to use the Command!",channel);
                 }
             }
             else{
-                channel.sendMessage("Sadly you're **not** in a voice channel :( Go there to use the Command!").queue();
+                DiscordBot.embedsender("Sadly you're **not** in a voice channel :( Go there to use the Command!",channel);
             }
         }
         else {
-            channel.sendMessage("Bitte benutze **" + DiscordBot.PREFIX + "play [url]** !").queue();
+            DiscordBot.embedsender("Bitte benutze **" + DiscordBot.PREFIX + "play [url]** !",channel);
         }
+    }
+
+    public void startapm(String finishedurl, MusicController c){
+        apm.loadItem(finishedurl, new AudioLoadResult(c, finishedurl));
     }
 }

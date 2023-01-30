@@ -19,12 +19,14 @@ public class AudioLoadResult implements AudioLoadResultHandler{
 
     @Override
     public void loadFailed(FriendlyException arg0) {
-        
+        EmbedBuilder builder = new EmbedBuilder().setTitle("Load failed!");
+        MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
     }
 
     @Override
     public void noMatches() {
-        
+        EmbedBuilder builder = new EmbedBuilder().setTitle("Found no song!");
+        MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
     }
 
     @Override
@@ -42,18 +44,22 @@ public class AudioLoadResult implements AudioLoadResultHandler{
             added++;
         }
 
-        EmbedBuilder builder = new EmbedBuilder().setDescription("Added **" + added + "** Tracks to the queue!");
+        EmbedBuilder builder = new EmbedBuilder().setTitle("Added **" + added + "** Tracks to the queue!");
         
         MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
     }
 
     @Override
     public void trackLoaded(AudioTrack track) {
-        controller.getPlayer().playTrack(track);
-
-        EmbedBuilder builder = new EmbedBuilder().setDescription("Added the Track to queue!");
-        MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
-        
+        if(controller.getPlayer().isPaused()){
+            controller.getPlayer().playTrack(track);
+        }else{
+            controller.getQueue().addTrackToQueue(track);
+            if(controller.getQueue().queueNotEmpty()){
+                EmbedBuilder builder = new EmbedBuilder().setTitle("Added the Track to queue!");
+                MusicUtil.sendEmbed(controller.getGuild().getIdLong(), builder, true);
+            }
+        }
     }
-    
+
 }

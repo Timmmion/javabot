@@ -5,8 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.tim.channeltimer.commands.getCompleteLeaderboard;
 import com.tim.channeltimer.commands.getTopLeaderboard;
-import com.tim.commands.ClearCommand;
-import com.tim.commands.ShutdownCommand;
+import com.tim.commands.ExitCommand;
+import com.tim.commands.broadcast;
 import com.tim.commands.types.ServerCommand;
 import com.tim.music.commands.PlayCommand;
 import com.tim.music.commands.ShuffleCommand;
@@ -25,8 +25,7 @@ public class CommandManager {
     public CommandManager(){
         commands = new ConcurrentHashMap<>();
 
-        commands.put("shutdown", new ShutdownCommand());
-        commands.put("clear", new ClearCommand());
+        commands.put("exit", new ExitCommand());
         commands.put("play", new PlayCommand());
         commands.put("stop", new StopCommand());
         commands.put("shuffle", new ShuffleCommand());
@@ -34,6 +33,7 @@ public class CommandManager {
         commands.put("volume", new VolumeCommand());
         commands.put("leaderboard", new getTopLeaderboard());
         commands.put("leaderboardall", new getCompleteLeaderboard());
+        commands.put("broadcast", new broadcast());
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){

@@ -23,10 +23,10 @@ public class ShuffleCommand implements ServerCommand{
                 if(vc != null){
                     MusicController controller = DiscordBot.INSTANCE.playerManager.getController(vc.getGuild().getIdLong());
                     controller.getQueue().shuffel();
-                    channel.sendMessage("**Shuffled!**").queue();
+                    DiscordBot.embedsender("**Shuffled!**",channel);
                 }
             }catch(Exception e){
-                channel.sendMessage("You **can't** shuffle because you're not in the same channel as the bot!").queue();
+                DiscordBot.embedsender("You **can't** shuffle because you're not in the same channel as the bot!",channel);
             }
         }
     }

@@ -66,4 +66,12 @@ public class SQL {
         }
         return null;
     }
+    
+    public static void lostConnection(){
+        if(con == null){
+            try{connect();} catch(Exception e) {
+                e.getStackTrace();
+            }
+        }
+    }
 }

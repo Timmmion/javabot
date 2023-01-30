@@ -30,12 +30,12 @@ public class SkipCommand implements ServerCommand{
                 MusicUtil.updateChannel(channel);
                     
             }catch (Exception e){
-                channel.sendMessage("Sadly you're **not** in a voice channel :( Go there to use the Command!").queue();
+                DiscordBot.embedsender("Sadly you're **not** in a voice channel :( Go there to use the Command!",channel);
                 e.getStackTrace();
             }
         }
         else{
-            channel.sendMessage("Sadly you're **not** in a voice channel :( Go there to use the Command!").queue();
+            DiscordBot.embedsender("Sadly you're **not** in a voice channel :( Go there to use the Command!",channel);
         }
     }
 }

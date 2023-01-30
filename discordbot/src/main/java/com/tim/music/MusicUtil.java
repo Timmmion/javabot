@@ -21,15 +21,16 @@ public class MusicUtil {
                 SQL.onUpdate("INSERT INTO musicchannel(guildid, channelid) VALUES(" + channel.getGuild().getIdLong() + "," + channel.getIdLong() + ")");
             }
         }catch(SQLException ex){
-
+			SQL.lostConnection();
         }
     }
 
 	public static void sendEmbed(long guildid, EmbedBuilder builder, boolean onlytext) {
 		TextChannel channel;
+		builder.setColor(DiscordBot.color);
 		if((channel = getMusicChannel(guildid)) != null) {
             if(onlytext){
-                channel.sendMessage(builder.getDescriptionBuilder()).queue();
+                channel.sendMessageEmbeds(builder.build()).queue();
             }else{
                 channel.sendMessageEmbeds(builder.build()).queue();
             }

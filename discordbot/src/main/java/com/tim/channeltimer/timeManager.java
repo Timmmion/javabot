@@ -26,20 +26,21 @@ public class timeManager extends ListenerAdapter {
                     for(VoiceChannel vc : DiscordBot.INSTANCE.shardManager.getVoiceChannels()){
                         List<Member> m = vc.getMembers();
                         for(Member member : m){
-                            //HIER WHERE CLAUSE NOT WORKING
-                            ResultSet set = SQL.onQuery("SELECT * FROM channeltime WHERE idLong='"+ member.getIdLong() + "'");
+                            
+                            ResultSet set = SQL.onQuery("SELECT * FROM channeltime WHERE idLong='"+ member.getIdLong() + "' AND server='" + member.getGuild().getIdLong() + "'");
                             if(set.next()){
                                 Long time = set.getLong("timeinmin");
                                 time++;
-                                SQL.onUpdate("UPDATE channeltime SET timeinmin=" + time + " WHERE name = '" + member.getUser().getName() + "'");
+                                SQL.onUpdate("UPDATE channeltime SET timeinmin=" + time + " WHERE name = '" + member.getUser().getName() + "' AND " + " server='" + member.getGuild().getIdLong() + "'");
                             }else{
-                                SQL.onUpdate("INSERT INTO channeltime VALUES(" + "'" + member.getUser().getName()+ "'" + " , '" + member.getIdLong() + "' , '0')");
+                                SQL.onUpdate("INSERT INTO channeltime VALUES(" + "'" + member.getUser().getName()+ "'" + " , '" + member.getIdLong() + "' , '0' , '" + member.getGuild().getIdLong() + "')");
                             }
                         }
                     }
 
                 }catch(Exception ex) {
-                    ex.printStackTrace(); 
+                    ex.printStackTrace();
+                    SQL.lostConnection();
                 }
             }
         }, 1, 60, TimeUnit.SECONDS);

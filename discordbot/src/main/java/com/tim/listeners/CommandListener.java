@@ -21,8 +21,7 @@ public class CommandListener extends ListenerAdapter{
     
                 if(args.length > 0){
                     if(!DiscordBot.INSTANCE.getCmdMan().perform(args[0], event.getMember(), channel, event.getMessage())){
-                        channel.sendMessage(message.replace(DiscordBot.PREFIX, "")).queue();
-                        channel.sendMessage("**Unknown Command!**").queue();
+                        DiscordBot.embedsender("**Unknown Command!**",channel);
                     }
                 }
             }

@@ -31,9 +31,9 @@ public class VolumeCommand implements ServerCommand{
 
                 if(volume >= 0 && volume <= 100){
                     player.setVolume(volume);
-                    channel.sendMessage("Volume set to: **" + volume + "**!").queue();
+                    DiscordBot.embedsender("Volume set to: **" + volume + "**!",channel);
                 }else{
-                    channel.sendMessage("Volume can't be highter then **100**").queue();
+                    DiscordBot.embedsender("Volume can't be highter then **100**",channel);
                 }
 
                 

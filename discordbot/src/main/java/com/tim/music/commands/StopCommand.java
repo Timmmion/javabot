@@ -30,9 +30,10 @@ public class StopCommand implements ServerCommand{
 
             player.stopTrack();
             manager.closeAudioConnection();
-            channel.sendMessage("**Stopped!**").queue();
+            controller.getQueue().clearqueue();
+            DiscordBot.embedsender("**Stopped!**",channel);
             }catch (Exception e){
-                channel.sendMessage("You can't stop the bot when you're **not** in the **same** channel!").queue();
+                DiscordBot.embedsender("You can't stop the bot when you're **not** in the **same** channel!",channel);
             }
         }
     }

@@ -16,13 +16,11 @@ import net.dv8tion.jda.api.managers.AudioManager;
 public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onPlayerPause(AudioPlayer player) {
-        // TODO Auto-generated method stub
         super.onPlayerPause(player);
     }
 
     @Override
     public void onPlayerResume(AudioPlayer player) {
-        // TODO Auto-generated method stub
         super.onPlayerResume(player);
     }
 
@@ -33,7 +31,7 @@ public class TrackScheduler extends AudioEventAdapter {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setColor(Color.GREEN);
         AudioTrackInfo info = track.getInfo();
-        builder.setDescription("**Now playing:** " + info.title);
+        builder.setTitle("**Now playing:** " + info.title);
         MusicUtil.sendEmbed(guildid, builder, true);
         
     }
