@@ -1,6 +1,5 @@
 package com.tim.channeltimer.commands;
 
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
