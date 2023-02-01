@@ -7,6 +7,7 @@ import com.tim.manage.SQL;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -30,6 +31,9 @@ public class ExitCommand implements ServerCommand{
                 }
                 for(TextChannel channels : DiscordBot.textchannels){
                     channels.delete().queue();
+                }
+                for(Role role : DiscordBot.roles){
+                    role.delete().queue();
                 }
                 shardManager.setStatus(OnlineStatus.OFFLINE);
                 shardManager.shutdown();

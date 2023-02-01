@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
@@ -43,11 +44,16 @@ public class gameManager extends ListenerAdapter{
     public boolean notwon = true;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final ScheduledExecutorService gametime = Executors.newScheduledThreadPool(1);
+    Role spec;
 
     public gameManager(Member member, TextChannel channel, Message message){
 
         guild = member.getGuild();
         p1 = member;
+        Random ran = new Random();
+        
+        spec = guild.createRole().setName("spec" + ran.nextInt(123192312)).setColor(DiscordBot.color).setMentionable(false).complete();
+        DiscordBot.addRemoveableRole(spec);
         gametime.scheduleAtFixedRate(
         new Runnable() {
             public void run() {
@@ -58,7 +64,7 @@ public class gameManager extends ListenerAdapter{
         try{
             p2 = message.getMentions().getMembers().get(0);
             if(p1 == p2) {DiscordBot.embedsender("Imagine no friends to play with xD", channel); return;}
-            channel.sendMessage(p2.getAsMention() + " do you want to play TicTacToe with " + p1.getAsMention() + "?").queue(a -> {a.addReaction(whiteCheckMark).queue();});
+            channel.sendMessage(p2.getAsMention() + " do you want to play TicTacToe with " + p1.getAsMention() + "?\n Everyone who wants to watch the game should also react to the checkmark! :)").queue(a -> {a.addReaction(whiteCheckMark).queue();});
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -71,16 +77,22 @@ public class gameManager extends ListenerAdapter{
             gameStarted = true;
             gameAccepted();
         }
+        if(event.getMember() != p2 || event.getMember() != p1){
+            event.getMember().getGuild().addRoleToMember(event.getMember(), spec).queue();
+        }
     }
 
     public void gameAccepted(){
 
-        EnumSet<Permission> permission = EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND);
+        EnumSet<Permission> permissiona = EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND);
+        EnumSet<Permission> permissionb = EnumSet.of(Permission.VIEW_CHANNEL);
+        EnumSet<Permission> permissionc = EnumSet.of(Permission.MESSAGE_SEND);
 
         gameChannel = guild.createTextChannel("TicTacToe");
-        gameChannel.addRolePermissionOverride(guild.getPublicRole().getIdLong(), null, permission);
-        gameChannel.addMemberPermissionOverride(p1.getIdLong(), permission, null);
-        gameChannel.addMemberPermissionOverride(p2.getIdLong(), permission, null);
+        gameChannel.addRolePermissionOverride(guild.getPublicRole().getIdLong(), null, permissiona);
+        gameChannel.addRolePermissionOverride(spec.getIdLong(), permissionb, permissionc);
+        gameChannel.addMemberPermissionOverride(p1.getIdLong(), permissiona, null);
+        gameChannel.addMemberPermissionOverride(p2.getIdLong(), permissiona, null);
 
         setupBoard();
     }
@@ -278,7 +290,19 @@ public class gameManager extends ListenerAdapter{
                 wins++;
                 SQL.onUpdate("UPDATE tttstats SET wins='" + wins + "' WHERE idlong= '" + p2.getIdLong() + "'");
             }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '1' , '0')");
+                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '1' , '0', '0')");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        try{
+            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
+            if(set.next()){
+                Long loses = set.getLong("loses");
+                loses++;
+                SQL.onUpdate("UPDATE tttstats SET loses='" + loses + "' WHERE idlong= '" + p1.getIdLong() + "'");
+            }else{
+                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName()+ "'" + " , " + "'" + p1.getIdLong() + "' , '0' , '1', '0')");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -296,7 +320,19 @@ public class gameManager extends ListenerAdapter{
                 wins++;
                 SQL.onUpdate("UPDATE tttstats SET wins='" + wins + "' WHERE idlong= '" + p1.getIdLong() + "'");
             }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName() + "'" + " , '" + p1.getIdLong() + "' , '1' , '0')");
+                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName() + "'" + " , '" + p1.getIdLong() + "' , '1' , '0', '0')");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        try{
+            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
+            if(set.next()){
+                Long loses = set.getLong("loses");
+                loses++;
+                SQL.onUpdate("UPDATE tttstats SET loses='" + loses + "' WHERE idlong= '" + p2.getIdLong() + "'");
+            }else{
+                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '0' , '1', '0')");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -316,7 +352,7 @@ public class gameManager extends ListenerAdapter{
     }
 
     public void end(){
-        
+        DiscordBot.removeRemoveableRole(spec);
         DiscordBot.removeListener(this, DiscordBot.INSTANCE.shardManager);
         DiscordBot.removeRemoveableChannel(finalchannel);
         finalchannel.delete().queue();
@@ -330,7 +366,7 @@ public class gameManager extends ListenerAdapter{
                 ties++;
                 SQL.onUpdate("UPDATE tttstats SET ties='" + ties + "' WHERE idlong= '" + p1.getIdLong() + "'");
             }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES('" + p1.getUser().getName() + "' , '" + p1.getIdLong() + "' , '0' , '1')");
+                SQL.onUpdate("INSERT INTO tttstats VALUES('" + p1.getUser().getName() + "' , '" + p1.getIdLong() + "' , '0' , '0', '1')");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -342,7 +378,7 @@ public class gameManager extends ListenerAdapter{
                 ties++;
                 SQL.onUpdate("UPDATE tttstats SET ties='" + ties + "' WHERE idlong= '" + p2.getIdLong() + "'");
             }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES('" + p2.getUser().getName() + "' , '" + p2.getIdLong() + "' , '0' , '1')");
+                SQL.onUpdate("INSERT INTO tttstats VALUES('" + p2.getUser().getName() + "' , '" + p2.getIdLong() + "' , '0' , '0', '1')");
             }
         }catch(Exception e){
             e.printStackTrace();

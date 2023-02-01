@@ -19,6 +19,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -44,6 +45,7 @@ public class DiscordBot
 
     public static List<ListenerAdapter> listeners = new ArrayList<>();
     public static List<TextChannel> textchannels = new ArrayList<>();
+    public static List<Role> roles = new ArrayList<>();
 
     public DiscordBot() throws LoginException{
         INSTANCE = this;
@@ -125,4 +127,12 @@ public class DiscordBot
     public static void removeRemoveableChannel(TextChannel channel){
         textchannels.remove(channel);
     }   
+
+    public static void addRemoveableRole(Role role){
+        roles.add(role);
+    }
+
+    public static void removeRemoveableRole(Role role){
+        roles.remove(role);
+    } 
 }

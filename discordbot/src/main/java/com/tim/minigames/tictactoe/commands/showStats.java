@@ -28,11 +28,13 @@ public class showStats implements ServerCommand{
         builder.setTitle(p.getUser().getName() + "s stats!");
         builder.setColor(DiscordBot.color);
         try {
-            ResultSet set = SQL.onQuery("SELECT wins, ties FROM tttstats WHERE idlong='" + p.getIdLong() + "'");
+            ResultSet set = SQL.onQuery("SELECT wins, loses, ties FROM tttstats WHERE idlong='" + p.getIdLong() + "'");
             while(set.next()){
                 long win = set.getLong("wins"); 
+                long loses = set.getLong("loses"); 
                 long tie = set.getLong("ties"); 
                 builder.addField("Wins:", Long.toString(win, 0),true);
+                builder.addField("Loses:", Long.toString(loses, 0),true);
                 builder.addField("Ties:", Long.toString(tie, 0),true);
             }
 
