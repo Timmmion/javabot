@@ -8,6 +8,8 @@ import com.tim.channeltimer.commands.getTopLeaderboard;
 import com.tim.commands.ExitCommand;
 import com.tim.commands.broadcast;
 import com.tim.commands.types.ServerCommand;
+import com.tim.minigames.tictactoe.commands.showStats;
+import com.tim.minigames.tictactoe.commands.tictactoeStart;
 import com.tim.music.commands.PlayCommand;
 import com.tim.music.commands.ShuffleCommand;
 import com.tim.music.commands.SkipCommand;
@@ -34,6 +36,8 @@ public class CommandManager {
         commands.put("leaderboard", new getTopLeaderboard());
         commands.put("leaderboardall", new getCompleteLeaderboard());
         commands.put("broadcast", new broadcast());
+        commands.put("tictactoe", new tictactoeStart());
+        commands.put("tttstats", new showStats());
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){

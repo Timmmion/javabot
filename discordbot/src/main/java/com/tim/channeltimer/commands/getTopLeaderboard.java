@@ -35,7 +35,7 @@ public class getTopLeaderboard implements ServerCommand{
             for(int i = 0;i < idlist.size();i++){
                 builder.addField((i + 1) + ".", DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + " minutes", false);
             }
-            channel.sendMessageEmbeds(builder.build()).queue();;
+            channel.sendMessageEmbeds(builder.build()).queue();
         } catch (SQLException e) { e.printStackTrace(); SQL.lostConnection(); }  
     }
 }

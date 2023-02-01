@@ -3,7 +3,6 @@ package com.tim.channeltimer;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import com.tim.DiscordBot;
 import com.tim.manage.SQL;
 
-public class timeManager extends ListenerAdapter {
+public class timeManager {
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 

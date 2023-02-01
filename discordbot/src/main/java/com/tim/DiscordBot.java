@@ -1,6 +1,8 @@
 package com.tim;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
@@ -18,6 +20,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -39,6 +42,8 @@ public class DiscordBot
     public AudioPlayerManager audioPlayerManager;
     public PlayerManager playerManager;
 
+    public static List<ListenerAdapter> listeners = new ArrayList<>();
+    public static List<TextChannel> textchannels = new ArrayList<>();
 
     public DiscordBot() throws LoginException{
         INSTANCE = this;
@@ -103,4 +108,21 @@ public class DiscordBot
         builder.setColor(color);
         channel.sendMessageEmbeds(builder.build()).queue();
     }
+
+    public static void registerListener(ListenerAdapter a, ShardManager sh){
+        sh.addEventListener(a);
+        listeners.add(a);
+    }
+
+    public static void removeListener(ListenerAdapter a, ShardManager sh){
+        sh.removeEventListener(a);
+    }
+
+    public static void addRemoveableChannel(TextChannel channel){
+        textchannels.add(channel);
+    }
+
+    public static void removeRemoveableChannel(TextChannel channel){
+        textchannels.remove(channel);
+    }   
 }

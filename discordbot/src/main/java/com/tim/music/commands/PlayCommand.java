@@ -42,10 +42,11 @@ public class PlayCommand implements ServerCommand{
                     String url = strBuilder.toString().trim();
                     if(!url.startsWith("http")){
                         url = "ytsearch: " + url + " audio";
+                        if(!controller.getPlayer().isPaused()){
+                            DiscordBot.embedsender("Added the Track to queue!", channel);
+                        }
                     }
-                    if(!controller.getPlayer().isPaused()){
-                        DiscordBot.embedsender("Added the Track to queue!", channel);
-                    }
+                    
                     startapm(url, controller);
 
                 }catch (Exception e)

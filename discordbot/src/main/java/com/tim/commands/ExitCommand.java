@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 public class ExitCommand implements ServerCommand{
@@ -20,8 +21,16 @@ public class ExitCommand implements ServerCommand{
 
         if(message.getAuthor().isBot()) return;
         if(m.getIdLong() == Long.parseLong(idOwner)){
-            if(shardManager != null){   
+            if(shardManager != null){ 
                 DiscordBot.embedsender("**Going to sleep goodbye :wave:**",channel);
+                for(ListenerAdapter adapter : DiscordBot.listeners){
+                    if(adapter != null){
+                        DiscordBot.removeListener(adapter, shardManager);
+                    }
+                }
+                for(TextChannel channels : DiscordBot.textchannels){
+                    channels.delete().queue();
+                }
                 shardManager.setStatus(OnlineStatus.OFFLINE);
                 shardManager.shutdown();
                 SQL.disconnect();

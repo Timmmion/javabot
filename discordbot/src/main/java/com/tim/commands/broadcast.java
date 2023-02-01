@@ -40,6 +40,7 @@ public class broadcast implements ServerCommand {
                     }
 
                     for(int i = 0; i < servers.size();i++){
+                        //System.out.println(DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().getName());
                         DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().sendMessageEmbeds(builder.build()).queue();
                     }
 
