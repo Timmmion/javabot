@@ -355,7 +355,6 @@ public class gameManager extends ListenerAdapter{
         DiscordBot.removeRemoveableRole(spec);
         DiscordBot.removeListener(this, DiscordBot.INSTANCE.shardManager);
         DiscordBot.removeRemoveableChannel(finalchannel);
-        finalchannel.delete().queue();
     }
 
     public void addTies(){
