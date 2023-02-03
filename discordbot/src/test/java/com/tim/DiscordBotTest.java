@@ -20,8 +20,8 @@ public class DiscordBotTest
         String token = config.get("TOKEN");
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
+        builder.setActivity(Activity.listening("Spotify"));
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("Hentai"));
         shardManager = builder.build();
     }
 

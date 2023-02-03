@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 import com.tim.DiscordBot;
 
@@ -29,7 +30,7 @@ public class SQL {
             //Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, username, password);
 
-            System.out.println("Connected to Database!");
+            System.out.println("Connected to Database! " + LocalDateTime.now());
 
             statement = con.createStatement();
 
@@ -67,11 +68,18 @@ public class SQL {
         return null;
     }
     
-    public static void lostConnection(){
-        if(con == null){
-            try{connect();} catch(Exception e) {
-                e.getStackTrace();
+    public static boolean checkConnection(){
+        try{
+            if(con.isClosed()){
+                System.out.println("DISCONNECTED! " + LocalDateTime.now());
+                SQL.connect();
+                return true;
+            }else{
             }
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
         }
+        return false;
     }
 }

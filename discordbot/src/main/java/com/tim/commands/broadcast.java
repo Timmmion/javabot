@@ -20,34 +20,38 @@ public class broadcast implements ServerCommand {
         if(message.getAuthor().isBot()) return;
 
         if(m.getIdLong() == Long.parseLong(DiscordBot.INSTANCE.config.get("OWNERIDLONG"))){
-            String[] args = message.getContentDisplay().split("<>");
-            List<Long> servers = new ArrayList<>();
+            if(SQL.checkConnection()){
+                String[] args = message.getContentDisplay().split("<>");
+                List<Long> servers = new ArrayList<>();
             
-            if(args.length == 3){
-                try{
-                    EmbedBuilder builder = new EmbedBuilder();
-                    builder.setColor(DiscordBot.color);
-                    builder.setTitle(args[1]);
-                    builder.setDescription(args[2]);
+                if(args.length == 3){
+                    try{
+                        EmbedBuilder builder = new EmbedBuilder();
+                        builder.setColor(DiscordBot.color);
+                        builder.setTitle(args[1]);
+                        builder.setDescription(args[2]);
 
-                    ResultSet set = SQL.onQuery("SELECT server FROM channeltime");
+                        ResultSet set = SQL.onQuery("SELECT server FROM channeltime");
 
-                    while(set.next()){
-                        long id = set.getLong("server");
-                        if(!servers.contains(id)){
-                            servers.add(id);
+                        while(set.next()){
+                            long id = set.getLong("server");
+                            if(!servers.contains(id)){
+                                servers.add(id);
+                            }
                         }
+
+                        for(int i = 0; i < servers.size();i++){
+                            //System.out.println(DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().getName());
+                            DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().sendMessageEmbeds(builder.build()).queue();
+                        }
+
+
+                    }catch(Exception e){
+                        e.printStackTrace();
                     }
-
-                    for(int i = 0; i < servers.size();i++){
-                        //System.out.println(DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().getName());
-                        DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().sendMessageEmbeds(builder.build()).queue();
-                    }
-
-
-                }catch(Exception e){
-                    e.printStackTrace();
                 }
+            }else{
+                DiscordBot.embedsender("**SQL ERROR!** Pleas message the owner of the bot :(", channel);
             }
         }else{
             DiscordBot.embedsender("You're not the owner of the bot so you cannot send messages!", channel);

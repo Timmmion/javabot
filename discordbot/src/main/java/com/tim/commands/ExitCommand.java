@@ -30,7 +30,9 @@ public class ExitCommand implements ServerCommand{
                     }
                 }
                 for(TextChannel channels : DiscordBot.textchannels){
-                    channels.delete().queue();
+                    if(channels != null){
+                        channels.delete().queue();
+                    }
                 }
                 for(Role role : DiscordBot.roles){
                     role.delete().queue();

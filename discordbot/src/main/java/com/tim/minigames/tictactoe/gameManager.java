@@ -283,29 +283,33 @@ public class gameManager extends ListenerAdapter{
     public void p2Win(){
         notwon = false;
         DiscordBot.embedsender(p2.getUser().getName() + " won!", finalchannel);
-        try{
-            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
-            if(set.next()){
-                Long wins = set.getLong("wins");
-                wins++;
-                SQL.onUpdate("UPDATE tttstats SET wins='" + wins + "' WHERE idlong= '" + p2.getIdLong() + "'");
-            }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '1' , '0', '0')");
+        if(SQL.checkConnection()){
+            try{
+                ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
+                if(set.next()){
+                    Long wins = set.getLong("wins");
+                    wins++;
+                    SQL.onUpdate("UPDATE tttstats SET wins='" + wins + "' WHERE idlong= '" + p2.getIdLong() + "'");
+                }else{
+                    SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '1' , '0', '0')");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        try{
-            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
-            if(set.next()){
-                Long loses = set.getLong("loses");
-                loses++;
-                SQL.onUpdate("UPDATE tttstats SET loses='" + loses + "' WHERE idlong= '" + p1.getIdLong() + "'");
-            }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName()+ "'" + " , " + "'" + p1.getIdLong() + "' , '0' , '1', '0')");
+            try{
+                ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
+                if(set.next()){
+                    Long loses = set.getLong("loses");
+                    loses++;
+                    SQL.onUpdate("UPDATE tttstats SET loses='" + loses + "' WHERE idlong= '" + p1.getIdLong() + "'");
+                }else{
+                    SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName()+ "'" + " , " + "'" + p1.getIdLong() + "' , '0' , '1', '0')");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        }else{
+            DiscordBot.embedsender("**SQL ERROR!** Pleas message the owner of the bot :(", finalchannel);
         }
         endgame();
     }
@@ -313,31 +317,34 @@ public class gameManager extends ListenerAdapter{
     public void p1Win(){
         notwon = false;
         DiscordBot.embedsender(p1.getUser().getName() + " won!", finalchannel);
-        try{
-            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
-            if(set.next()){
-                Long wins = set.getLong("wins");
-                wins++;
-                SQL.onUpdate("UPDATE tttstats SET wins='" + wins + "' WHERE idlong= '" + p1.getIdLong() + "'");
-            }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName() + "'" + " , '" + p1.getIdLong() + "' , '1' , '0', '0')");
+        if(SQL.checkConnection()){
+            try{
+                ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
+                if(set.next()){
+                    Long wins = set.getLong("wins");
+                    wins++;
+                    SQL.onUpdate("UPDATE tttstats SET wins='" + wins + "' WHERE idlong= '" + p1.getIdLong() + "'");
+                }else{
+                    SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p1.getUser().getName() + "'" + " , '" + p1.getIdLong() + "' , '1' , '0', '0')");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        try{
-            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
-            if(set.next()){
-                Long loses = set.getLong("loses");
-                loses++;
-                SQL.onUpdate("UPDATE tttstats SET loses='" + loses + "' WHERE idlong= '" + p2.getIdLong() + "'");
-            }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '0' , '1', '0')");
+            try{
+                ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
+                if(set.next()){
+                    Long loses = set.getLong("loses");
+                    loses++;
+                    SQL.onUpdate("UPDATE tttstats SET loses='" + loses + "' WHERE idlong= '" + p2.getIdLong() + "'");
+                }else{
+                    SQL.onUpdate("INSERT INTO tttstats VALUES(" + "'" +  p2.getUser().getName()+ "'" + " , " + "'" + p2.getIdLong() + "' , '0' , '1', '0')");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        }else{
+            DiscordBot.embedsender("**SQL ERROR!** Pleas message the owner of the bot :(", finalchannel);
         }
-
         endgame();
     }
     
@@ -355,32 +362,37 @@ public class gameManager extends ListenerAdapter{
         DiscordBot.removeRemoveableRole(spec);
         DiscordBot.removeListener(this, DiscordBot.INSTANCE.shardManager);
         DiscordBot.removeRemoveableChannel(finalchannel);
+        finalchannel.delete().queue();
     }
 
     public void addTies(){
-        try{
-            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
-            if(set.next()){
-                Long ties = set.getLong("ties");
-                ties++;
-                SQL.onUpdate("UPDATE tttstats SET ties='" + ties + "' WHERE idlong= '" + p1.getIdLong() + "'");
-            }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES('" + p1.getUser().getName() + "' , '" + p1.getIdLong() + "' , '0' , '0', '1')");
+        if(SQL.checkConnection()){
+            try{
+                ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p1.getIdLong() + "'");
+                if(set.next()){
+                    Long ties = set.getLong("ties");
+                    ties++;
+                    SQL.onUpdate("UPDATE tttstats SET ties='" + ties + "' WHERE idlong= '" + p1.getIdLong() + "'");
+                }else{
+                    SQL.onUpdate("INSERT INTO tttstats VALUES('" + p1.getUser().getName() + "' , '" + p1.getIdLong() + "' , '0' , '0', '1')");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        try{
-            ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
-            if(set.next()){
-                Long ties = set.getLong("ties");
-                ties++;
-                SQL.onUpdate("UPDATE tttstats SET ties='" + ties + "' WHERE idlong= '" + p2.getIdLong() + "'");
-            }else{
-                SQL.onUpdate("INSERT INTO tttstats VALUES('" + p2.getUser().getName() + "' , '" + p2.getIdLong() + "' , '0' , '0', '1')");
+            try{
+                ResultSet set = SQL.onQuery("SELECT * FROM tttstats WHERE idLong='" + p2.getIdLong() + "'");
+                if(set.next()){
+                    Long ties = set.getLong("ties");
+                    ties++;
+                    SQL.onUpdate("UPDATE tttstats SET ties='" + ties + "' WHERE idlong= '" + p2.getIdLong() + "'");
+                }else{
+                    SQL.onUpdate("INSERT INTO tttstats VALUES('" + p2.getUser().getName() + "' , '" + p2.getIdLong() + "' , '0' , '0', '1')");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        }else{
+            DiscordBot.embedsender("**SQL ERROR!** Pleas message the owner of the bot :(", finalchannel);
         }
     }
 }

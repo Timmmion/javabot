@@ -3,7 +3,7 @@ package com.tim;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
+                                                                         
 import javax.security.auth.login.LoginException;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -80,6 +80,7 @@ public class DiscordBot
 
         timeManager timeManager = new timeManager();
         timeManager.startScheduleTask();
+        
     }
 
     public Dotenv getconfig(){
