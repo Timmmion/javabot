@@ -64,7 +64,7 @@ public class DiscordBot
         cmdMan = new CommandManager();
 
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("Hentai"));
+        builder.setActivity(Activity.watching("auf Janoix Ass"));
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_VOICE_STATES);
         builder.addEventListeners(new CommandListener());
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
@@ -92,7 +92,7 @@ public class DiscordBot
     }
 
 
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         try{
             DiscordBot bot = new DiscordBot();
