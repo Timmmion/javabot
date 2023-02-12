@@ -46,6 +46,7 @@ public class gameManager extends ListenerAdapter{
     private final ScheduledExecutorService gametime = Executors.newScheduledThreadPool(1);
     Role spec;
     String prefix;
+    Message msg = null;
 
     public gameManager(Member member, TextChannel channel, Message message){
         prefix = DiscordBot.PREFIX;
@@ -58,6 +59,10 @@ public class gameManager extends ListenerAdapter{
         gametime.scheduleAtFixedRate(
         new Runnable() {
             public void run() {
+                message.delete().queue();
+                if(msg != null){
+                    msg.delete().queue();
+                }
                 end();
                 scheduler.shutdown();
             }
@@ -65,7 +70,7 @@ public class gameManager extends ListenerAdapter{
         try{
             p2 = message.getMentions().getMembers().get(0);
             if(p1 == p2) {DiscordBot.embedsender("Imagine no friends to play with xD", channel); return;}
-            channel.sendMessage(p2.getAsMention() + " do you want to play TicTacToe with " + p1.getAsMention() + "?\n Everyone who wants to watch the game should also react to the checkmark! :)").queue(a -> {a.addReaction(whiteCheckMark).queue();});
+            channel.sendMessage(p2.getAsMention() + " do you want to play TicTacToe with " + p1.getAsMention() + "?\n Everyone who wants to watch the game should also react to the checkmark! :)").queue(a -> {a.addReaction(whiteCheckMark).queue(); msg = a;});
         }catch(Exception e){
             DiscordBot.embedsender("Use " + prefix + "tictactoe @user!", channel);
         }

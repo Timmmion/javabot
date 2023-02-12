@@ -9,6 +9,7 @@ import javax.security.auth.login.LoginException;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.tim.activity.ActivityChanger;
 import com.tim.channeltimer.timeManager;
 import com.tim.listeners.CommandListener;
 import com.tim.manage.SQL;
@@ -47,40 +48,41 @@ public class DiscordBot
     public static List<TextChannel> textchannels = new ArrayList<>();
     public static List<Role> roles = new ArrayList<>();
 
+    public static void main(String[] args) { try{ DiscordBot bot = new DiscordBot(); if(bot.equals(bot)){ }} catch (LoginException e){ System.out.println("Error: Bot token is not valid!"); }}
+
     public DiscordBot() throws LoginException{
+
         INSTANCE = this;
-
         config = Dotenv.configure().load();
-
+        String token = config.get("TOKEN");
+        
         SQL.connect();
         SQLManager.onCreate();
 
-        String token = config.get("TOKEN");
-
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
-        
-        audioPlayerManager = new DefaultAudioPlayerManager();
-        playerManager = new PlayerManager();
-        cmdMan = new CommandManager();
+        shardManager = createBuilder(builder);
 
-        builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("auf Janoix Ass"));
-        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_VOICE_STATES);
-        builder.addEventListeners(new CommandListener());
-        builder.setMemberCachePolicy(MemberCachePolicy.ALL);
-        builder.setChunkingFilter(ChunkingFilter.ALL);
-        builder.enableCache(CacheFlag.ONLINE_STATUS);
+        registerManager();
+        registerListeners();
 
-        shardManager = builder.build();
         System.out.println("BOT ONLINE!");
+    }
 
-        //Register Listeners
+    public void registerListeners(){
         AudioSourceManagers.registerRemoteSources(audioPlayerManager);
         audioPlayerManager.getConfiguration().setFilterHotSwapEnabled(true);
 
         timeManager timeManager = new timeManager();
         timeManager.startScheduleTask();
-        
+
+        ActivityChanger activityChanger = new ActivityChanger();
+        activityChanger.startScheduler();
+    }
+
+    public void registerManager(){
+        audioPlayerManager = new DefaultAudioPlayerManager();
+        playerManager = new PlayerManager();
+        cmdMan = new CommandManager();
     }
 
     public Dotenv getconfig(){
@@ -91,25 +93,24 @@ public class DiscordBot
         return cmdMan;
     }
 
-
-    public static void main(String[] args)
-    {
-        try{
-            DiscordBot bot = new DiscordBot();
-            if(bot.equals(bot)){
-                
-            }
-        }catch (LoginException e){
-            System.out.println("Error: Bot token is not valid!");
-        }
-
-    }
-
     public static void embedsender(String title ,TextChannel channel){
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setColor(color);
         channel.sendMessageEmbeds(builder.build()).queue();
+    }
+
+    public ShardManager createBuilder(DefaultShardManagerBuilder builder){
+        
+        builder.setStatus(OnlineStatus.ONLINE);
+        builder.setActivity(Activity.watching("auf Janoix Ass"));
+        builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGES ,GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_VOICE_STATES);
+        builder.addEventListeners(new CommandListener());
+        builder.setMemberCachePolicy(MemberCachePolicy.ALL);
+        builder.setChunkingFilter(ChunkingFilter.ALL);
+        builder.enableCache(CacheFlag.ONLINE_STATUS);
+
+        return builder.build();
     }
 
     public static void registerListener(ListenerAdapter a, ShardManager sh){

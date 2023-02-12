@@ -20,10 +20,11 @@ public class randomTimeout implements ServerCommand{
 
     @Override
     public void perfomCommand(Member m, TextChannel channel, Message message) {
-        //TIMO MOB FUNCTION
+        
         try{
             Duration duration = Duration.of(rand.nextLong(360), ChronoUnit.SECONDS);
             Member mem = m.getGuild().getMemberById("566207040288981018");
+            
             mem.timeoutFor(duration).queue();
             DiscordBot.embedsender(mem.getUser().getName() + " was timeouted for " + duration.getSeconds() + " seconds! xD", channel);
         }catch(Exception e){

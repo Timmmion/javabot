@@ -27,10 +27,11 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
         long guildid = DiscordBot.INSTANCE.playerManager.getGuildbyPlayerHash(player.hashCode());
+        AudioTrackInfo info = track.getInfo();
 
         EmbedBuilder builder = new EmbedBuilder();
         builder.setColor(Color.GREEN);
-        AudioTrackInfo info = track.getInfo();
+
         builder.setTitle("**Now playing:** " + info.title);
         MusicUtil.sendEmbed(guildid, builder, true);
         

@@ -19,27 +19,32 @@ public class ExitCommand implements ServerCommand{
         ShardManager shardManager = DiscordBot.INSTANCE.shardManager;
         String idOwner = DiscordBot.INSTANCE.config.get("OWNERIDLONG");
 
-
         if(message.getAuthor().isBot()) return;
+
         if(m.getIdLong() == Long.parseLong(idOwner)){
             if(shardManager != null){ 
                 DiscordBot.embedsender("**Going to sleep goodbye :wave:**",channel);
+
                 for(ListenerAdapter adapter : DiscordBot.listeners){
                     if(adapter != null){
                         DiscordBot.removeListener(adapter, shardManager);
                     }
                 }
+
                 for(TextChannel channels : DiscordBot.textchannels){
                     if(channels != null){
                         channels.delete().queue();
                     }
                 }
+
                 for(Role role : DiscordBot.roles){
                     role.delete().queue();
                 }
+
                 shardManager.setStatus(OnlineStatus.OFFLINE);
                 shardManager.shutdown();
                 SQL.disconnect();
+                
                 System.out.println("BOT OFFLINE!");
             }
         }else{

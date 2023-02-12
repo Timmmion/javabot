@@ -1,7 +1,22 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.dependency.packagePresentation": "hierarchical",
-    "java.compile.nullAnalysis.mode": "automatic",
-    "editor.fontFamily": "'Fira Code'",
-    "editor.fontLigatures": true
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.dependency.packagePresentation": "hierarchical",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "editor.fontFamily": "'Fira Code'",
+  "editor.fontLigatures": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "*/.LCK": true,
+    "": true
+  },
+  "hide-files.files": [
+    "discordbot/src/main/java/com/tim/.LCKpom.xml~",
+    "discordbot/src/main/java/com/tim/dependency-reduced-pom.xml",
+    "discordbot/dependency-reduced-pom.xml"
+  ]
 }
