@@ -12,11 +12,30 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "*/.LCK": true,
-    "": true
+    "": true,
+    "discordbot/src/main/java/com/tim/.LCKpom.xml~": true,
+    "discordbot/src/main/java/com/tim/dependency-reduced-pom.xml": true,
+    "discordbot/dependency-reduced-pom.xml": true,
+    "discordbot/src/main/java/com/tim/scheduler/channeltimer/commands/.LCKgetCompleteLeaderboard.java~": true,
+    "discordbot/src/main/java/com/tim/scheduler/channeltimer/commands/.LCKstats.java~": true,
+    "discordbot/src/main/java/com/tim/scheduler/channeltimer/.LCKtimeManager.java~": true,
+    "discordbot/src/main/java/com/tim/scheduler/activity/.LCKActivityChanger.java~": true,
+    "discordbot/src/main/java/com/tim/commands/.LCKPoll.java~": true,
+    "discordbot/src/test/java/com/tim": true,
+    "discordbot/src/test/java/com": true,
+    "discordbot/src/test": true
   },
   "hide-files.files": [
     "discordbot/src/main/java/com/tim/.LCKpom.xml~",
     "discordbot/src/main/java/com/tim/dependency-reduced-pom.xml",
-    "discordbot/dependency-reduced-pom.xml"
+    "discordbot/dependency-reduced-pom.xml",
+    "discordbot/src/main/java/com/tim/scheduler/channeltimer/commands/.LCKgetCompleteLeaderboard.java~",
+    "discordbot/src/main/java/com/tim/scheduler/channeltimer/commands/.LCKstats.java~",
+    "discordbot/src/main/java/com/tim/scheduler/channeltimer/.LCKtimeManager.java~",
+    "discordbot/src/main/java/com/tim/scheduler/activity/.LCKActivityChanger.java~",
+    "discordbot/src/main/java/com/tim/commands/.LCKPoll.java~",
+    "discordbot/src/test/java/com/tim",
+    "discordbot/src/test/java/com",
+    "discordbot/src/test"
   ]
 }

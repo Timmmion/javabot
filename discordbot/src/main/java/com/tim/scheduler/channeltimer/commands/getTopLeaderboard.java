@@ -1,4 +1,4 @@
-package com.tim.channeltimer.commands;
+package com.tim.scheduler.channeltimer.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -3,18 +3,18 @@ package com.tim;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-                                                                         
+
 import javax.security.auth.login.LoginException;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.tim.activity.ActivityChanger;
-import com.tim.channeltimer.timeManager;
 import com.tim.listeners.CommandListener;
 import com.tim.manage.SQL;
 import com.tim.manage.SQLManager;
 import com.tim.music.PlayerManager;
+import com.tim.scheduler.activity.ActivityChanger;
+import com.tim.scheduler.channeltimer.timeManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -50,6 +50,7 @@ public class DiscordBot
 
     public static void main(String[] args) { try{ DiscordBot bot = new DiscordBot(); if(bot.equals(bot)){ }} catch (LoginException e){ System.out.println("Error: Bot token is not valid!"); }}
 
+    //BOT CONFIG AND SETUP
     public DiscordBot() throws LoginException{
 
         INSTANCE = this;
@@ -83,14 +84,6 @@ public class DiscordBot
         audioPlayerManager = new DefaultAudioPlayerManager();
         playerManager = new PlayerManager();
         cmdMan = new CommandManager();
-    }
-
-    public Dotenv getconfig(){
-        return config;
-    }
-
-    public CommandManager getCmdMan() {
-        return cmdMan;
     }
 
     public static void embedsender(String title ,TextChannel channel){
@@ -137,4 +130,12 @@ public class DiscordBot
     public static void removeRemoveableRole(Role role){
         roles.remove(role);
     } 
+
+    public Dotenv getconfig(){
+        return config;
+    }
+
+    public CommandManager getCmdMan() {
+        return cmdMan;
+    }
 }

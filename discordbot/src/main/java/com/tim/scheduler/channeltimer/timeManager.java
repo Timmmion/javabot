@@ -1,4 +1,4 @@
-package com.tim.channeltimer;
+package com.tim.scheduler.channeltimer;
 
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;

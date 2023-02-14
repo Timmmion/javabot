@@ -1,4 +1,4 @@
-package com.tim.channeltimer.commands;
+package com.tim.scheduler.channeltimer.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +39,9 @@ public class getCompleteLeaderboard implements ServerCommand{
                     timelist.add(time);
                 }
                 for(int i = 0;i < idlist.size();i++){
-                    builder.addField((i + 1) + ".", DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + " minutes", false);
+                    if(DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)) != null){
+                        builder.addField((i + 1) + ".", DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + " minutes", false);
+                    }
                 }
                 channel.sendMessageEmbeds(builder.build()).queue();
 

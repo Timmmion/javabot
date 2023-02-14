@@ -3,20 +3,21 @@ package com.tim;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tim.channeltimer.commands.getCompleteLeaderboard;
-import com.tim.channeltimer.commands.getTopLeaderboard;
-import com.tim.channeltimer.commands.stats;
+
 import com.tim.commands.ExitCommand;
 import com.tim.commands.broadcast;
 import com.tim.commands.randomTimeout;
-import com.tim.commands.poll.PollInstaniate;
 import com.tim.commands.types.ServerCommand;
+import com.tim.listeners.poll.PollInstaniate;
 import com.tim.minigames.tictactoe.commands.tictactoeStart;
 import com.tim.music.commands.PlayCommand;
 import com.tim.music.commands.ShuffleCommand;
 import com.tim.music.commands.SkipCommand;
 import com.tim.music.commands.StopCommand;
 import com.tim.music.commands.VolumeCommand;
+import com.tim.scheduler.channeltimer.commands.getCompleteLeaderboard;
+import com.tim.scheduler.channeltimer.commands.getTopLeaderboard;
+import com.tim.scheduler.channeltimer.commands.stats;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
