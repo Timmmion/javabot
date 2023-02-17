@@ -45,6 +45,7 @@ public class Poll extends ListenerAdapter{
                 .setTitle("Poll")
                 .setDescription("**How to use Poll:** \n &poll <>HH:mm dd-MM-yyyy<> 1 Option <> 2 Option <> 3 Option \n You can add up to 9 options! \n In the first field you have to put the deadline!");
             channel.sendMessageEmbeds(builder.build()).queue();
+            return;
         }
 
         for(int i = 3; i < args.length;i++){
@@ -54,7 +55,7 @@ public class Poll extends ListenerAdapter{
             text += "\n";
         }
 
-        if(args.length >= 4 && args.length <= 10){
+        if(args.length >= 4 && args.length <= 12){
             EmbedBuilder builder = new EmbedBuilder()
                 .setColor(DiscordBot.color)
                 .setTitle(args[2])
@@ -67,6 +68,7 @@ public class Poll extends ListenerAdapter{
                 .setTitle("Poll")
                 .setDescription("**How to use Poll:** \n &poll <>HH:mm dd-MM-yyyy<> 1 Option <> 2 Option <> 3 Option \n You can add up to 9 options! \n In the first field you have to put the deadline!");
             channel.sendMessageEmbeds(builder.build()).queue();
+            return;
         }
     }
 
