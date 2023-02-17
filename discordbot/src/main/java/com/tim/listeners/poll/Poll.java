@@ -37,13 +37,13 @@ public class Poll extends ListenerAdapter{
         String text = "";
 
         try{
-            date = LocalDateTime.parse(args[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            date = LocalDateTime.parse(args[1], DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"));
         }catch(Exception e){
             e.printStackTrace();
             EmbedBuilder builder = new EmbedBuilder()
                 .setColor(DiscordBot.color)
                 .setTitle("Poll")
-                .setDescription("**How to use Poll:** \n &poll <>yyyy-MM-dd HH:mm<> 1 Option <> 2 Option <> 3 Option \n You can add up to 9 options! \n In the first field you have to put the deadline!");
+                .setDescription("**How to use Poll:** \n &poll <>HH:mm dd-MM-yyyy<> 1 Option <> 2 Option <> 3 Option \n You can add up to 9 options! \n In the first field you have to put the deadline!");
             channel.sendMessageEmbeds(builder.build()).queue();
         }
 
@@ -65,7 +65,7 @@ public class Poll extends ListenerAdapter{
             EmbedBuilder builder = new EmbedBuilder()
                 .setColor(DiscordBot.color)
                 .setTitle("Poll")
-                .setDescription("**How to use Poll:** \n &poll <>yyyy-MM-dd HH:mm<> 1 Option <> 2 Option <> 3 Option \n You can add up to 9 options! \n In the first field you have to put the deadline!");
+                .setDescription("**How to use Poll:** \n &poll <>HH:mm dd-MM-yyyy<> 1 Option <> 2 Option <> 3 Option \n You can add up to 9 options! \n In the first field you have to put the deadline!");
             channel.sendMessageEmbeds(builder.build()).queue();
         }
     }

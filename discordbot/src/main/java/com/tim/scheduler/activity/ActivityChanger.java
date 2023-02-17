@@ -24,7 +24,7 @@ public class ActivityChanger {
                     Random rand = new Random();
                     
                     int i = 0;
-                    i = rand.nextInt(2);
+                    i = rand.nextInt(3);
 
                     switch(i){
                         case 0:

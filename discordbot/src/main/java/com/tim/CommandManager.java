@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.tim.commands.ExitCommand;
 import com.tim.commands.broadcast;
+import com.tim.commands.help;
 import com.tim.commands.randomTimeout;
 import com.tim.commands.types.ServerCommand;
 import com.tim.listeners.poll.PollInstaniate;
@@ -43,6 +44,7 @@ public class CommandManager {
         commands.put("stats", new stats());
         commands.put("randomtimeout", new randomTimeout());
         commands.put("poll", new PollInstaniate());
+        commands.put("help", new help());
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){
