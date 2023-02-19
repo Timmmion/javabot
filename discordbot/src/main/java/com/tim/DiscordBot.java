@@ -9,6 +9,7 @@ import javax.security.auth.login.LoginException;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.tim.birthday.checkbirthday;
 import com.tim.listeners.CommandListener;
 import com.tim.manage.SQL;
 import com.tim.manage.SQLManager;
@@ -78,6 +79,9 @@ public class DiscordBot
 
         ActivityChanger activityChanger = new ActivityChanger();
         activityChanger.startScheduler();
+
+        checkbirthday checkbirthday = new checkbirthday();
+        checkbirthday.startScheduler();
     }
 
     public void registerManager(){

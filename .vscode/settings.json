@@ -12,17 +12,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "*/.LCK": true,
-    "": true,
-    "discordbot/src/main/java/com/tim/.LCKpom.xml~": true,
-    "discordbot/src/main/java/com/tim/dependency-reduced-pom.xml": true,
-    "discordbot/dependency-reduced-pom.xml": true,
-    "discordbot/src/main/java/com/tim/scheduler/channeltimer/commands/.LCKgetCompleteLeaderboard.java~": true,
-    "discordbot/src/main/java/com/tim/scheduler/channeltimer/.LCKtimeManager.java~": true,
-    "discordbot/src/main/java/com/tim/scheduler/activity/.LCKActivityChanger.java~": true,
-    "discordbot/src/main/java/com/tim/commands/.LCKPoll.java~": true,
-    "discordbot/src/test/java/com/tim": true,
-    "discordbot/src/test/java/com": true,
-    "discordbot/src/test": true
+    "": true
   },
   "hide-files.files": [
     "discordbot/src/main/java/com/tim/.LCKpom.xml~",
