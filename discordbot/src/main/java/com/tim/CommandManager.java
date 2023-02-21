@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.tim.birthday.addbirthday;
 import com.tim.birthday.removebirthday;
+import com.tim.birthday.showbirthday;
 import com.tim.commands.ExitCommand;
 import com.tim.commands.broadcast;
 import com.tim.commands.help;
@@ -47,6 +48,7 @@ public class CommandManager {
         commands.put("poll", new PollInstaniate());
         commands.put("bdadd", new addbirthday());
         commands.put("bdremove", new removebirthday());
+        commands.put("bdshow", new showbirthday());
         commands.put("help", new help());
     }
 

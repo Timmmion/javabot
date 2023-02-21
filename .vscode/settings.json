@@ -1,9 +1,4 @@
 {
-  "java.configuration.updateBuildConfiguration": "automatic",
-  "java.dependency.packagePresentation": "hierarchical",
-  "java.compile.nullAnalysis.mode": "automatic",
-  "editor.fontFamily": "'Fira Code'",
-  "editor.fontLigatures": true,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -12,18 +7,14 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "*/.LCK": true,
-    "": true
+    "": true,
+    "discordbot/src/main/java/com/tim/.LCKpom.xml~": true,
+    "discordbot/src/main/java/com/tim/scheduler/activity/.LCKActivityChanger.java~": true,
+    "discordbot/src/main/java/com/tim/commands/.LCKPoll.java~": true
   },
   "hide-files.files": [
     "discordbot/src/main/java/com/tim/.LCKpom.xml~",
-    "discordbot/src/main/java/com/tim/dependency-reduced-pom.xml",
-    "discordbot/dependency-reduced-pom.xml",
-    "discordbot/src/main/java/com/tim/scheduler/channeltimer/commands/.LCKgetCompleteLeaderboard.java~",
-    "discordbot/src/main/java/com/tim/scheduler/channeltimer/.LCKtimeManager.java~",
     "discordbot/src/main/java/com/tim/scheduler/activity/.LCKActivityChanger.java~",
-    "discordbot/src/main/java/com/tim/commands/.LCKPoll.java~",
-    "discordbot/src/test/java/com/tim",
-    "discordbot/src/test/java/com",
-    "discordbot/src/test"
+    "discordbot/src/main/java/com/tim/commands/.LCKPoll.java~"
   ]
 }

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.tim.DiscordBot;
 
@@ -69,17 +70,17 @@ public class SQL {
     }
     
     public static boolean checkConnection(){
-        try{
+        for(;;){
+          try{
             if(con.isClosed()){
-                System.out.println("DISCONNECTED! " + LocalDateTime.now());
+                System.out.println("DISCONNECTED! " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm")));
                 SQL.connect();
-                return true;
             }else{
+                return true;
             }
-            return true;
-        }catch(SQLException e){
+          }catch(Exception e){
             e.printStackTrace();
+          }
         }
-        return false;
     }
 }

@@ -14,7 +14,7 @@ import com.tim.listeners.CommandListener;
 import com.tim.manage.SQL;
 import com.tim.manage.SQLManager;
 import com.tim.music.PlayerManager;
-import com.tim.scheduler.activity.ActivityChanger;
+//import com.tim.scheduler.activity.ActivityChanger;
 import com.tim.scheduler.channeltimer.timeManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -77,8 +77,8 @@ public class DiscordBot
         timeManager timeManager = new timeManager();
         timeManager.startScheduleTask();
 
-        ActivityChanger activityChanger = new ActivityChanger();
-        activityChanger.startScheduler();
+        /*ActivityChanger activityChanger = new ActivityChanger();
+        activityChanger.startScheduler();*/
 
         checkbirthday checkbirthday = new checkbirthday();
         checkbirthday.startScheduler();
@@ -100,7 +100,7 @@ public class DiscordBot
     public ShardManager createBuilder(DefaultShardManagerBuilder builder){
         
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("auf Janoix Ass"));
+        builder.setActivity(Activity.watching("Hentai"));
         builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGES ,GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_VOICE_STATES);
         builder.addEventListeners(new CommandListener());
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
