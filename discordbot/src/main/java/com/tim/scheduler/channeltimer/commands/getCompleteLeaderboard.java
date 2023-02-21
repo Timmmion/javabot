@@ -22,15 +22,14 @@ public class getCompleteLeaderboard implements ServerCommand{
         if(SQL.checkConnection()){
 
             EmbedBuilder builder = new EmbedBuilder();
-            builder.setTitle("Complete user list!");
+            builder.setTitle("Leaderboard TOP 20!");
             builder.setColor(DiscordBot.color);
 
-            ResultSet set = SQL.onQuery("SELECT idlong, timeinmin FROM channeltime WHERE server='" + m.getGuild().getIdLong() + "' ORDER BY timeinmin DESC");
+            ResultSet set = SQL.onQuery("SELECT name, idlong, timeinmin FROM channeltime WHERE server='" + m.getGuild().getIdLong() + "' ORDER BY timeinmin DESC");
             List<Long> idlist = new ArrayList<>();
             List<Long> timelist = new ArrayList<>();
 
             try {
-                
                 while(set.next()){
                     long id = set.getLong("idlong");
                     long time = set.getLong("timeinmin"); 
@@ -38,11 +37,19 @@ public class getCompleteLeaderboard implements ServerCommand{
                     idlist.add(id);
                     timelist.add(time);
                 }
-                for(int i = 0;i < idlist.size();i++){
+
+                String part = "";
+
+                for(int i = 0;i < 20;i++){
+                    
                     if(DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)) != null){
-                        builder.addField((i + 1) + ".", DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + " minutes", false);
+                        part += "**"+ (i+1) + ".** " +  DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + "minutes \n";
                     }
-                }
+
+                }   
+
+                builder.setDescription(part);
+
                 channel.sendMessageEmbeds(builder.build()).queue();
 
             } catch (SQLException e) { e.printStackTrace(); }  

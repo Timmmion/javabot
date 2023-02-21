@@ -1,6 +1,5 @@
 package com.tim;
 
-
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tim.birthday.addbirthday;
@@ -19,7 +18,7 @@ import com.tim.music.commands.SkipCommand;
 import com.tim.music.commands.StopCommand;
 import com.tim.music.commands.VolumeCommand;
 import com.tim.scheduler.channeltimer.commands.getCompleteLeaderboard;
-import com.tim.scheduler.channeltimer.commands.getTopLeaderboard;
+//import com.tim.scheduler.channeltimer.commands.getTopLeaderboard;
 import com.tim.scheduler.channeltimer.commands.stats;
 
 import net.dv8tion.jda.api.entities.Member;
@@ -39,8 +38,8 @@ public class CommandManager {
         commands.put("shuffle", new ShuffleCommand());
         commands.put("skip", new SkipCommand());
         commands.put("volume", new VolumeCommand());
-        commands.put("leaderboard", new getTopLeaderboard());
-        commands.put("leaderboardall", new getCompleteLeaderboard());
+        //commands.put("leaderboard", new getTopLeaderboard());
+        commands.put("lb", new getCompleteLeaderboard());
         commands.put("broadcast", new broadcast());
         commands.put("tictactoe", new tictactoeStart());
         commands.put("stats", new stats());
@@ -53,7 +52,6 @@ public class CommandManager {
     }
 
     public boolean perform(String command,Member m, TextChannel channel, Message message){
-
         ServerCommand cmd;
         if((cmd = commands.get(command.toLowerCase())) != null){
             cmd.perfomCommand(m, channel, message);

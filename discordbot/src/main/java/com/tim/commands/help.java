@@ -16,7 +16,7 @@ public class help implements ServerCommand{
         EmbedBuilder builder = new EmbedBuilder()
             .setColor(DiscordBot.color)
             .setTitle("Commands/Feature Help")
-            .addField("Commands:","&play \n &stop \n &shuffle \n &skip \n &volume \n &leaderboard \n &tictactoe \n &stats \n &poll \n &bdadd \n &bdremove \n &bdshow",true)
+            .addField("Commands:","&play \n &stop \n &shuffle \n &skip \n &volume \n &lb \n &tictactoe \n &stats \n &poll \n &bdadd \n &bdremove \n &bdshow",true)
             .addField("","Play a song! \n Stop the queue! \n Shuffle the queue! \n Skip one song! \n Set volume from 1 to 100 [Default value = 10] \n Show the leaderboard! \n Start a TicTacToe game! \n Show the stats from a user! \n Create a poll! \n Set your birthday! \n Remove your birthday! \n Shows the date of a birthday",true);
         channel.sendMessageEmbeds(builder.build()).queue();
     }
