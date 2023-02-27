@@ -6,6 +6,7 @@ import com.tim.birthday.addbirthday;
 import com.tim.birthday.removebirthday;
 import com.tim.birthday.showbirthday;
 import com.tim.commands.ExitCommand;
+import com.tim.commands.NotifySwitch;
 import com.tim.commands.broadcast;
 import com.tim.commands.help;
 import com.tim.commands.randomTimeout;
@@ -48,6 +49,7 @@ public class CommandManager {
         commands.put("bdadd", new addbirthday());
         commands.put("bdremove", new removebirthday());
         commands.put("bdshow", new showbirthday());
+        commands.put("notification", new NotifySwitch());
         commands.put("help", new help());
     }
 

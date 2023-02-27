@@ -8,6 +8,7 @@ public class SQLManager {
         SQL.onUpdate("CREATE TABLE IF NOT EXISTS channeltime(name MEDIUMTEXT,idLong BIGINT,timeinmin BIGINT,server BIGINT)");
         SQL.onUpdate("CREATE TABLE IF NOT EXISTS tttstats(name MEDIUMTEXT,idLong BIGINT,wins BIGINT,loses BIGINT, ties BIGINT)");
         SQL.onUpdate("CREATE TABLE IF NOT EXISTS birthday(name MEDIUMTEXT, idlong BIGINT, date MEDIUMTEXT)");
+        SQL.onUpdate("CREATE TABLE IF NOT EXISTS notification(idlong BIGINT, switch BOOL)");
     }
 
 }

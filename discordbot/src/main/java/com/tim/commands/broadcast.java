@@ -32,17 +32,30 @@ public class broadcast implements ServerCommand {
                         builder.setDescription(args[2]);
 
                         ResultSet set = SQL.onQuery("SELECT server FROM channeltime");
-
+                        
                         while(set.next()){
                             long id = set.getLong("server");
+
                             if(!servers.contains(id)){
                                 servers.add(id);
                             }
                         }
 
+                        set.close();
+
                         for(int i = 0; i < servers.size();i++){
-                            //System.out.println(DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().getName());
-                            DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().sendMessageEmbeds(builder.build()).queue();
+
+                            ResultSet global = SQL.onQuery("SELECT switch FROM notification WHERE idlong='" + servers.get(i) + "'");
+
+                            if(global.next()){
+                                if(global.getBoolean("switch")){   
+                                    DiscordBot.INSTANCE.shardManager.getGuildById(servers.get(i)).getDefaultChannel().asTextChannel().sendMessageEmbeds(builder.build()).queue();
+                                }
+                            }else{
+                                SQL.onUpdate("INSERT INTO notification VALUES(" + servers.get(i) + ", 1)");
+                            }
+
+                            global.close();
                         }
 
 

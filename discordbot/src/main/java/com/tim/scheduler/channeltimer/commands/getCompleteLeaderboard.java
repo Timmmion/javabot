@@ -24,8 +24,8 @@ public class getCompleteLeaderboard implements ServerCommand{
             EmbedBuilder builder = new EmbedBuilder();
             builder.setTitle("Leaderboard TOP 20!");
             builder.setColor(DiscordBot.color);
-
-            ResultSet set = SQL.onQuery("SELECT name, idlong, timeinmin FROM channeltime WHERE server='" + m.getGuild().getIdLong() + "' ORDER BY timeinmin DESC");
+            
+            ResultSet set = SQL.onQuery("SELECT name, idlong, timeinmin FROM channeltime WHERE server='" + m.getGuild().getIdLong() + "' ORDER BY timeinmin DESC LIMIT 20");
             List<Long> idlist = new ArrayList<>();
             List<Long> timelist = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class getCompleteLeaderboard implements ServerCommand{
 
                 String part = "";
 
-                for(int i = 0;i < 20;i++){
+                for(int i = 0;i < idlist.size();i++){
                     
                     if(DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)) != null){
                         part += "**"+ (i+1) + ".** " +  DiscordBot.INSTANCE.shardManager.getUserById(idlist.get(i)).getAsMention() + " " + timelist.get(i) + "minutes \n";
