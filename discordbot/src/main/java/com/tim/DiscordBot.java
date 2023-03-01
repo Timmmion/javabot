@@ -91,6 +91,7 @@ public class DiscordBot
     }
 
     public static void embedsender(String title ,TextChannel channel){
+        //channel.sendMessage(title).queue();
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setColor(color);

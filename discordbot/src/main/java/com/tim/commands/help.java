@@ -16,8 +16,8 @@ public class help implements ServerCommand{
         EmbedBuilder builder = new EmbedBuilder()
             .setColor(DiscordBot.color)
             .setTitle("Commands/Feature Help")
-            .addField("Commands:","&play \n &stop \n &shuffle \n &skip \n &volume \n &lb \n &tictactoe \n &stats \n &poll \n &bdadd \n &bdremove \n &bdshow \n &notification",true)
-            .addField("","Play a song! \n Stop the queue! \n Shuffle the queue! \n Skip one song! \n Set volume from 1 to 100 [Default value = 10] \n Show the leaderboard! \n Start a TicTacToe game! \n Show the stats from a user! \n Create a poll! \n Set your birthday! \n Remove your birthday! \n Shows the date of a birthday \n Turns the notification on/off",true);
+            .addField("Commands:","&play \n &stop \n &shuffle \n &skip \n &volume \n &lb \n &tictactoe \n &stats \n &poll \n &bdadd \n &bdremove \n &bdshow \n &notification \n &wif",true)
+            .addField("","Play a song! \n Stop the queue! \n Shuffle the queue! \n Skip one song! \n Set volume from 1 to 100 [Default value = 10] \n Show the leaderboard! \n Start a TicTacToe game! \n Show the stats from a user! \n Create a poll! \n Set your birthday! \n Remove your birthday! \n Shows the date of a birthday \n Turns the notification on/off \n Try it!",true);
         channel.sendMessageEmbeds(builder.build()).queue();
     }
 }

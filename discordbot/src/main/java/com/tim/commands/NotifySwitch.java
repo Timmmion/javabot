@@ -15,39 +15,39 @@ public class NotifySwitch implements ServerCommand{
     @Override
     public void perfomCommand(Member m, TextChannel channel, Message message) {
         
-        if(m.isOwner()){
+        if(SQL.checkConnection()){
+            if(m.isOwner()){
 
-            ResultSet set = SQL.onQuery("SELECT switch FROM notification WHERE idlong='" + m.getGuild().getIdLong() + "'");
-            try{
-                if(set.next()){
-                
-                    boolean bool = set.getBoolean("switch");
+                ResultSet set = SQL.onQuery("SELECT switch FROM notification WHERE idlong='" + m.getGuild().getIdLong() + "'");
+                try{
+                    if(set.next()){
+                    
+                        boolean bool = set.getBoolean("switch");
+        
+                        if(bool){
     
-                    if(bool){
-
-                        SQL.onUpdate("UPDATE notification SET switch='0'");
-                        DiscordBot.embedsender("Notification set to :x:", channel);
-
+                            SQL.onUpdate("UPDATE notification SET switch='0'");
+                            DiscordBot.embedsender("Notification set to :x:", channel);
+    
+                        }else{
+    
+                            SQL.onUpdate("UPDATE notification SET switch='1'");
+                            DiscordBot.embedsender("Notification set to :white_check_mark:", channel);
+    
+                        }
+        
                     }else{
-
-                        SQL.onUpdate("UPDATE notification SET switch='1'");
-                        DiscordBot.embedsender("Notification set to :white_check_mark:", channel);
-
+                        SQL.onUpdate("INSERT INTO notification VALUES(" + m.getGuild().getIdLong() + ", 0)");
+                        DiscordBot.embedsender("Notification set to :x: ", channel);
                     }
-    
-                }else{
-                    SQL.onUpdate("INSERT INTO notification VALUES(" + m.getGuild().getIdLong() + ", 0)");
-                    DiscordBot.embedsender("Notification set to :x: ", channel);
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-            }catch(Exception e){
-                e.printStackTrace();
+    
+    
+            }else{
+                DiscordBot.embedsender("Only the OWNER is allowed to change the notification settings!", channel);
             }
-
-
-        }else{
-            DiscordBot.embedsender("Only the OWNER is allowed to change the notification settings!", channel);
         }
-
     }
-
 }
