@@ -38,7 +38,7 @@ public class WhenIsFriday implements ServerCommand{
 
         EmbedBuilder builder = new EmbedBuilder()
             .setColor(DiscordBot.color)
-            .setDescription("Next Friday is in **" + days + "** days **"  +  hours + "** hours **" + minutes + "** minutes and **" + seconds + "** seconds! :beers: ");
+            .setDescription("Next Friday is in **" + (days - 1) + "** days **"  +  hours + "** hours **" + minutes + "** minutes and **" + seconds + "** seconds! :beers: ");
 
         channel.sendMessageEmbeds(builder.build()).queue();
     }
