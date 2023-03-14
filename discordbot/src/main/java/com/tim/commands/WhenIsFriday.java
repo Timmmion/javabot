@@ -1,13 +1,8 @@
 package com.tim.commands;
 
-import java.awt.Color;
 import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 import com.tim.DiscordBot;
 import com.tim.commands.types.ServerCommand;

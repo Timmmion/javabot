@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.apache.hc.core5.http.ParseException;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
@@ -22,7 +21,6 @@ import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 public class SpotifyInterpreter {
     
     private SpotifyApi spotifyApi;
-    private static SpotifyInterpreter instance;
     private String id;
     private String type;
     public final Dotenv config;
@@ -34,7 +32,6 @@ public class SpotifyInterpreter {
         }catch(Exception e){
             e.printStackTrace();
         }
-        instance = this;
     }
 
     private void initiate() throws SpotifyWebApiException, IOException, ParseException{
@@ -48,7 +45,7 @@ public class SpotifyInterpreter {
         spotifyApi.setAccessToken(creds.getAccessToken());
     }
 
-    public ArrayList<String> convert(String link, TextChannel channel) throws ParseException, SpotifyWebApiException, IOException{
+    public ArrayList<String> convert(String link) throws ParseException, SpotifyWebApiException, IOException{
 
         String[] firstSplit = link.split("/");
         String[] secondSplit;
@@ -67,7 +64,6 @@ public class SpotifyInterpreter {
 		if(type.contentEquals("track")) {
 
 			listOfTracks.add(getArtistAndName(id));
-            channel.sendMessage(listOfTracks.get(0)).queue();
 			return listOfTracks;
 		}
 		

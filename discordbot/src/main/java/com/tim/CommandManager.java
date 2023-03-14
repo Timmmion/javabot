@@ -16,12 +16,13 @@ import com.tim.commands.textchannelToFile;
 import com.tim.commands.types.ServerCommand;
 import com.tim.listeners.poll.PollInstaniate;
 import com.tim.minigames.tictactoe.commands.tictactoeStart;
+import com.tim.music.commands.PauseCommand;
 import com.tim.music.commands.PlayCommand;
+import com.tim.music.commands.ResumeCommand;
 import com.tim.music.commands.ShuffleCommand;
 import com.tim.music.commands.SkipCommand;
 import com.tim.music.commands.StopCommand;
 import com.tim.music.commands.VolumeCommand;
-import com.tim.music.commands.interpret;
 import com.tim.scheduler.channeltimer.commands.getCompleteLeaderboard;
 //import com.tim.scheduler.channeltimer.commands.getTopLeaderboard;
 import com.tim.scheduler.channeltimer.commands.stats;
@@ -57,7 +58,8 @@ public class CommandManager {
         commands.put("wif", new WhenIsFriday());
         commands.put("icon", new downloadServerIcon());
         commands.put("ttf", new textchannelToFile());
-        commands.put("interpret", new interpret());
+        commands.put("resume", new ResumeCommand());
+        commands.put("pause", new PauseCommand());
         commands.put("help", new help());
     }
 

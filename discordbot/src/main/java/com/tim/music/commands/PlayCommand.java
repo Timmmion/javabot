@@ -44,7 +44,7 @@ public class PlayCommand implements ServerCommand{
                     String url = strBuilder.toString().trim();
 
                     if(url.startsWith("https://open.spotify.com")){
-                        ArrayList<String> name = DiscordBot.INSTANCE.spotifyInterpreter.convert(url, channel);
+                        ArrayList<String> name = DiscordBot.INSTANCE.spotifyInterpreter.convert(url);
                         
                         if(!controller.getPlayer().isPaused()){
                             if(name.size() == 1) {
