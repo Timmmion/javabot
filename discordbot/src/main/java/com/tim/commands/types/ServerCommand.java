@@ -6,6 +6,6 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public interface ServerCommand {
     
-    public void perfomCommand(Member m, TextChannel channel, Message message);
+    public void perfomCommand(Member m, TextChannel channel, Message message) ;
 
 }

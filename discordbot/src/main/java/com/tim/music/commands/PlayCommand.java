@@ -1,5 +1,7 @@
 package com.tim.music.commands;
 
+import java.util.ArrayList;
+
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.tim.DiscordBot;
 import com.tim.commands.types.ServerCommand;
@@ -40,6 +42,27 @@ public class PlayCommand implements ServerCommand{
                     for(int i = 1; i < args.length; i++) strBuilder.append(args[i] + " ");
 
                     String url = strBuilder.toString().trim();
+
+                    if(url.startsWith("https://open.spotify.com")){
+                        ArrayList<String> name = DiscordBot.INSTANCE.spotifyInterpreter.convert(url, channel);
+                        
+                        if(!controller.getPlayer().isPaused()){
+                            if(name.size() == 1) {
+                                DiscordBot.embedsender("Added the Track to queue!", channel);
+                            }else{
+                                DiscordBot.embedsender("Added " + name.size() + " Tracks to the queue!",  channel);
+                            }
+                            
+                        }
+                        for(String str : name){
+                            startapm("ytsearch: " + str + " audio ", controller);
+                        }
+
+
+
+                        return;
+                    }
+
                     if(!url.startsWith("http")){
                         url = "ytsearch: " + url + " audio";
                         if(!controller.getPlayer().isPaused()){

@@ -14,6 +14,7 @@ import com.tim.listeners.CommandListener;
 import com.tim.manage.SQL;
 import com.tim.manage.SQLManager;
 import com.tim.music.PlayerManager;
+import com.tim.music.SpotifyInterpreter;
 //import com.tim.scheduler.activity.ActivityChanger;
 import com.tim.scheduler.channeltimer.timeManager;
 
@@ -21,6 +22,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -44,6 +46,7 @@ public class DiscordBot
 
     public AudioPlayerManager audioPlayerManager;
     public PlayerManager playerManager;
+    public SpotifyInterpreter spotifyInterpreter;
 
     public static List<ListenerAdapter> listeners = new ArrayList<>();
     public static List<TextChannel> textchannels = new ArrayList<>();
@@ -88,6 +91,7 @@ public class DiscordBot
         audioPlayerManager = new DefaultAudioPlayerManager();
         playerManager = new PlayerManager();
         cmdMan = new CommandManager();
+        spotifyInterpreter = new SpotifyInterpreter();
     }
 
     public static void embedsender(String title ,TextChannel channel){
